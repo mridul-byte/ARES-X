@@ -1,0 +1,63 @@
+<!-- ARES-X File 07: Industrial Dashboard UI -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ARES-X | Centralised Pentesting Framework</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net">
+    <script src="https://cdn.socket.io"></script>
+    <style>
+        body { background: #0a0a0a; color: #00ff41; font-family: 'Courier New', monospace; }
+        .terminal { background: #000; border: 1px solid #00ff41; height: 400px; overflow-y: scroll; padding: 15px; margin-bottom: 20px; }
+        .btn-industrial { border: 1px solid #00ff41; color: #00ff41; background: transparent; margin: 5px; width: 100%; }
+        .btn-industrial:hover { background: #00ff41; color: #000; }
+        .stat-box { border: 1px solid #333; padding: 10px; text-align: center; background: #111; }
+    </style>
+</head>
+<body class="container py-5">
+    <h1 class="text-center mb-4">ARES-X : INDUSTRIAL EXPLOITATION SYSTEM</h1>
+    
+    <div class="row mb-4">
+        <div class="col-md-3 stat-box">STATUS: <span id="status">ONLINE</span></div>
+        <div class="col-md-3 stat-box">DATA: 4.2GB LOADED</div>
+        <div class="col-md-3 stat-box">MODULES: 35 ACTIVE</div>
+        <div class="col-md-3 stat-box">LATENCY: 12ms</div>
+    </div>
+
+    <div class="terminal" id="terminal">
+        [>] Awaiting Operator Input...<br>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <h5>NETWORK LAYER</h5>
+            <button class="btn btn-industrial" onclick="runModule('Scanner', '192.168.1.1')">STALTH SCANNER</button>
+            <button class="btn btn-industrial">PACKET SNIFFER</button>
+        </div>
+        <div class="col-md-4">
+            <h5>WEB LAYER</h5>
+            <button class="btn btn-industrial">SQL INJECTOR</button>
+            <button class="btn btn-industrial">API FUZZER</button>
+        </div>
+        <div class="col-md-4">
+            <h5>PAYLOADS</h5>
+            <button class="btn btn-industrial">GENERATE EXE</button>
+            <button class="btn btn-industrial">GENERATE APK</button>
+        </div>
+    </div>
+
+    <script>
+        var socket = io();
+        var terminal = document.getElementById('terminal');
+
+        socket.on('terminal_out', function(msg) {
+            terminal.innerHTML += "> " + msg.line + "<br>";
+            terminal.scrollTop = terminal.scrollHeight;
+        });
+
+        function runModule(name, target) {
+            socket.emit('start_module', {module: name, target: target});
+        }
+    </script>
+</body>
+</html>
