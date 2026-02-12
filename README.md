@@ -29,7 +29,7 @@ python3 run.py
 
 No Data? Run 
 ```bash
-scripts/update_db.sh
+./update_db.sh
 ```
 Errors? Run 
 ```bash
@@ -37,7 +37,7 @@ python3 help.py 
 ```
 Cleaning? Run
 ```bash
-scripts/cleanup.sh
+./cleanup.sh
 ```
 
 ##🚀 ACCESS THE DASHBOARD
